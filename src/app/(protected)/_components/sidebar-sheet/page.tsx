@@ -1,17 +1,10 @@
 "use client";
 
-import { Calendar, Home, Trophy, User, LogOut } from "lucide-react";
+import { Calendar, Home, Trophy, User, LogOut, Gem } from "lucide-react";
 import Link from "next/link";
-// import Image from "next/image";
-import {
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetClose,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-// import { quickSearchOptions } from "../../_constants/search";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { SheetContent, SheetHeader, SheetClose } from "@/components/ui/sheet";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   DropdownMenu,
@@ -21,16 +14,44 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { authClient } from "@/lib/auth-client";
+import { Separator } from "@/components/ui/separator";
+
+const items = [
+  {
+    title: "Início",
+    url: "/home",
+    icon: Home,
+  },
+  {
+    title: "Classificação",
+    url: "/classification",
+    icon: Trophy,
+  },
+  {
+    title: "Jogos",
+    url: "/games",
+    icon: Calendar,
+  },
+  {
+    title: "Perfil",
+    url: "/profile",
+    icon: User,
+  },
+];
 
 const SidebarSheet = () => {
   const router = useRouter();
   const session = authClient.useSession();
+  const pathname = usePathname();
 
   const handleSignOut = async () => {
     await authClient.signOut({
@@ -45,61 +66,55 @@ const SidebarSheet = () => {
   return (
     <SheetContent className="flex flex-col h-full">
       <SheetHeader>
-        <SheetTitle className="text-left">Menu</SheetTitle>
+        <Image src="/Logo.png" alt="Sportify" width={100} height={28} />
       </SheetHeader>
 
-      <div className="flex-1 flex flex-col gap-2 border-b border-solid py-5">
-        <SheetClose asChild>
-          <Button className="justify-start gap-2" variant="ghost" asChild>
-            <Link href="/home">
-              <Home size={18} />
-              Início
-            </Link>
-          </Button>
-        </SheetClose>
-        <SheetClose asChild>
-          <Button className="justify-start gap-2" variant="ghost" asChild>
-            <Link href="/classification">
-              <Trophy size={18} />
-              Classificação
-            </Link>
-          </Button>
-        </SheetClose>
-        <SheetClose asChild>
-          <Button className="justify-start gap-2" variant="ghost" asChild>
-            <Link href="/games">
-              <Calendar size={18} />
-              Jogos
-            </Link>
-          </Button>
-        </SheetClose>
-        <SheetClose asChild>
-          <Button className="justify-start gap-2" variant="ghost" asChild>
-            <Link href="/profile">
-              <User size={18} />
-              Perfil
-            </Link>
-          </Button>
-        </SheetClose>
-      </div>
+      <Separator />
 
-      {/* <div className="flex flex-col gap-2 border-b border-solid py-5">
-        {quickSearchOptions.map((option) => (
-          <SheetClose key={option.title} asChild>
-            <Button className="justify-start gap-2" variant="ghost" asChild>
-              <Link href={`/barbershops?service=${option.title}`}>
-                <Image
-                  alt={option.title}
-                  src={option.imageUrl}
-                  height={18}
-                  width={18}
-                />
-                {option.title}
-              </Link>
-            </Button>
-          </SheetClose>
-        ))}
-      </div> */}
+      <SidebarGroup className="flex flex-col gap-4 border-b border-solid py-5 mt-[-18px]">
+        <SidebarGroupLabel>Menu principal</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem className="flex flex-col gap-4">
+              <SheetClose asChild>
+                <SidebarMenu>
+                  {items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={pathname === item.url}
+                      >
+                        <Link href={item.url}>
+                          <item.icon />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SheetClose>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Outros</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === "/subscription"}
+              >
+                <Link href="/subscription">
+                  <Gem />
+                  <span>Assinatura</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
 
       <SidebarFooter className="mt-auto pb-6">
         <SidebarMenu>

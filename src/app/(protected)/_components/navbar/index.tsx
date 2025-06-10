@@ -57,7 +57,7 @@ export default function Navbar() {
     <header className="navbar-container">
       <nav className="navbar">
         <Link href="/" className="logo">
-          <Image src="logo.svg" width={50} height={50} alt="Logo do sistema" />
+          <Image src="logo.png" width={50} height={50} alt="Logo do sistema" />
         </Link>
 
         <ul className={`nav-items ${openMenu ? "open" : ""}`}>
