@@ -1,7 +1,10 @@
-import { Bell, Menu } from "lucide-react";
+import { Bell, MenuIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import SidebarSheet from "../sidebar-sheet/page";
 
 const Header = async () => {
   const session = await auth.api.getSession({
@@ -32,9 +35,14 @@ const Header = async () => {
         <button className="p-2 rounded-full hover:bg-accent transition-colors">
           <Bell className="h-5 w-5 text-foreground" />
         </button>
-        <button className="p-2 rounded-full hover:bg-accent transition-colors">
-          <Menu className="h-5 w-5 text-foreground" />
-        </button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="icon" variant="outline">
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <SidebarSheet />
+        </Sheet>
       </div>
     </header>
   );

@@ -8,14 +8,14 @@ export default function Home() {
 
   // Adicionando o tipo explícito para TypeScript
   const handleNavigation = (route: string) => {
-    router.push(route); // Redireciona para a rota especificada
+    router.push(route);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 relative">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-6 relative">
       {/* Logo */}
       <div className="mt-2 mb-6 mr-60">
-        <Image src="/Logo.png" alt="Logo" width={100} height={100} />
+        <Image src="/Logo.png" alt="Logo" width={200} height={200} />
       </div>
 
       {/* Imagens sobrepostas */}
@@ -26,7 +26,7 @@ export default function Home() {
           alt="Imagem de futebol"
           width={290}
           height={414}
-          className="absolute z-10 ml-[-100px] mt-[-60px]"
+          className="absolute z-10 ml-[-120px] mt-[-60px]"
         />
 
         {/* Imagem de vetor abaixo da imagem de futebol */}

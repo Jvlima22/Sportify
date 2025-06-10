@@ -55,7 +55,7 @@ const SignUpForm = () => {
       },
       {
         onSuccess: () => {
-          router.push("/dashboard");
+          router.push("/home");
         },
         onError: (ctx) => {
           if (ctx.error.code === "USER_ALREADY_EXISTS") {
