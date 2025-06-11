@@ -29,6 +29,7 @@ export const auth = betterAuth({
           ...user,
           emailVerified: userData?.emailVerified,
           image: userData?.image,
+          plan: userData?.plan,
         },
         session,
       };

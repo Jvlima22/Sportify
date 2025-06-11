@@ -3,7 +3,12 @@
 import { Calendar, Home, Trophy, User, LogOut, Gem } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { SheetContent, SheetHeader, SheetClose } from "@/components/ui/sheet";
+import {
+  SheetContent,
+  SheetHeader,
+  SheetClose,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { usePathname, useRouter } from "next/navigation";
 
 import {
@@ -66,6 +71,7 @@ const SidebarSheet = () => {
   return (
     <SheetContent className="flex flex-col h-full">
       <SheetHeader>
+        <SheetTitle>Menu</SheetTitle>
         <Image src="/Logo.png" alt="Sportify" width={100} height={28} />
       </SheetHeader>
 
